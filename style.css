@@ -1,0 +1,25 @@
+.tbl {
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+    width: 400px;
+    text-align: center;
+  }
+  
+  tr:nth-child(even){background-color: #f2f2f2}
+  
+  th {
+    background-color: purple;
+    color: white;
+  }
+  #btnAdicionar {
+    background-color: purple;
+    color: white;
+    padding: 10px;
+    border: none;
+    margin-top: 20px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  }
