@@ -6,38 +6,40 @@ function adicionaLinha(idTabela) {
   var celula2 = linha.insertCell(1);   
   var celula3 = linha.insertCell(2);
   var celula4 = linha.insertCell(3);
-
+ 
   celula1.setAttribute('class','nome');
   celula2.setAttribute('class','idade');
   celula3.setAttribute('class','cidade');
   celula4.setAttribute('class','acoes');
 
-  celula1.innerHTML = '';
-  celula2.innerHTML = '' ;
-  celula3.innerHTML = '' ; 
-  celula4.innerHTML = "<button onclick='removeLinha(this)' class='del'><img src='rsz_delete.png'></button><button onclick='alterarLinha(this)' class='edit'><img src='rsz_edit.png'></button>";
-  
+  celula1.innerHTML = " ";
+  celula2.innerHTML = " ";
+  celula3.innerHTML = " "; 
+  celula4.innerHTML = "<button onclick='removeLinha(this.parentNode.parentNode.rowIndex)' class='del'><img src='rsz_delete.png'></button><button onclick='alterarLinha(this.parentNode.parentNode.rowIndex)' class='edit'><img src='rsz_edit.png'></button>";
+  alterarLinha(numeroLinhas);
+
 }
 function alterarLinha(l) {
-  let linha = l.parentNode.parentNode.rowIndex;
+  let linha = l;
   linha=linha-1;
   var nome = document.getElementsByClassName('nome');
   var idade = document.getElementsByClassName('idade');
   var cidade = document.getElementsByClassName('cidade');
   var acoes = document.getElementsByClassName('acoes');
 
-  var info1 = nome.textContent; 
-  var info2 = idade.textContent;
-  var info3 = cidade.textContent;
+  var info1 = nome[linha].textContent; 
+  var info2 = idade[linha].textContent;
+  var info3 = cidade[linha].textContent;
 
   if(!info1 && !info2 && !info3){
     info1=" ";
     info2=" ";
     info3=" ";
   }
-  nome.innerHTML = " ";
-  idade.innerHTML = " ";
-  cidade.innerHTML = " ";
+  nome[linha].innerHTML = " ";
+  idade[linha].innerHTML = " ";
+  cidade[linha].innerHTML = " ";
+  acoes[linha].innerHTML = "";
 
   var input1 = document.createElement("INPUT");
     input1.setAttribute("type", "text");
@@ -67,12 +69,11 @@ function alterarLinha(l) {
     acoes[linha].appendChild(salvar);
 
     var btn_Confirma= acoes[linha].childNodes;
-    
 
-    btn_Confirma[2].onclick = function confirm() {
+    btn_Confirma[0].onclick = function confirm() {
       var val_cel = document.getElementById("nome_input").value;
       var val_cel2 = document.getElementById("idade_input").value;
-      var val_cel3 = document.getElementById("idade_input").value;
+      var val_cel3 = document.getElementById("cidade_input").value;
 
       if (val_cel == " " || val_cel2 == " " || val_cel3 == " ") {
         alert("Preencha todos os campos")
@@ -80,14 +81,15 @@ function alterarLinha(l) {
       else {
         nome[linha].innerHTML = val_cel;
         idade[linha].innerHTML = val_cel2;
-        cidade[linha].innerHTML = val_cel3; 
-        var rem = btn_Confirma[2];
+        cidade[linha].innerHTML = val_cel3;
+        var rem = btn_Confirma[0];
         rem.remove();
+        acoes[linha].innerHTML = "<button onclick='removeLinha(this.parentNode.parentNode.rowIndex)' class='del'><img src='rsz_delete.png'></button><button onclick='alterarLinha(this.parentNode.parentNode.rowIndex)' class='edit'><img src='rsz_edit.png'></button>";
       } 
    }
   }
 
 function removeLinha(linha1) {
-  var i=linha1.parentNode.parentNode.rowIndex;
+  var i=linha1;
   document.getElementById('tbl').deleteRow(i);
 } 
